@@ -124,7 +124,7 @@ app.delete('/api/usuarios/:id', (req, res) => {
 app.post('/api/register', (req, res) => {
     const { id, user, username, password, tipo_usuario } = req.body;
     const values = [id, user, username, password];
-    const sql = "INSERT INTO login (id, user, username, passwordgit  ) VALUES (?, ?, ?, ?)";
+    const sql = "INSERT INTO login (id, user, username, password  ) VALUES (?, ?, ?, ?)";
     var connection = mysql.createConnection(credentials);
     connection.query(sql, values, (err, result) => {
         if (err) {
