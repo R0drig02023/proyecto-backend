@@ -8,10 +8,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json({ limit: '10mb' }));
 
 const credentials = {
-  host: 'localhost',
-  user: 'root',
-  password: '',
-  database: 'hea'
+  host: '154.56.47.52',
+  user: 'u196388150_SU',
+  password: 'E9n8@8xW9KB^6',
+  database: 'u196388150_SU'
 };
 
 app.get('/', (req, res) => {
