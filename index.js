@@ -148,8 +148,8 @@ app.get('/api/usuarios', (req, res) => {
     });
     connection.end();
 });
-app.post('/api/esp32', (req, res) => {
-    const { sensor_1, sensor_2, sensor_3 } = req.body;
+app.get('/api/esp32', (req, res) => {
+    const { sensor_1, sensor_2, sensor_3 } = req.query;
 
     const values = [sensor_1, sensor_2, sensor_3];
     const sql = "INSERT INTO esp32_data (sensor_1, sensor_2, sensor_3) VALUES (?, ?, ?)";
@@ -162,6 +162,7 @@ app.post('/api/esp32', (req, res) => {
             res.status(201).send("Datos de ESP32 almacenados correctamente");
         }
     });
+
 
     connection.end();
 });
