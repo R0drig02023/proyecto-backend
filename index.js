@@ -149,17 +149,18 @@ app.get('/api/usuarios', (req, res) => {
     connection.end();
 });
 app.post('/api/esp32', (req, res) => {
-    const sql = "SELECT * FROM esp32";
+    const { sensor_1, sensor_2, sensor_3 } = req.body;
+    const sql = "INSERT INTO esp32 (sensor_1, sensor_2, sensor_3) VALUES (?, ?, ?)";
+    const values = [sensor_1, sensor_2, sensor_3];
     
     var connection = mysql.createConnection(credentials);
-    connection.query(sql, (err, result) => {
+    connection.query(sql, values, (err, result) => {
         if (err) {
             res.status(500).send(err);
         } else {
-            res.status(200).json(result);
+            res.status(201).json({ message: 'Datos del ESP32 guardados correctamente' });
         }
     });
-
 
     connection.end();
 });
