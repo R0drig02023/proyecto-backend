@@ -154,13 +154,34 @@ app.post('/api/esp32', (req, res) => {
     const values = [sensor_1, sensor_2, sensor_3];
     
     var connection = mysql.createConnection(credentials);
+    connection.connect(); // Conecta a la base de datos
+
     connection.query(sql, values, (err, result) => {
         if (err) {
-            res.status(500).send(err);
+            res.status(500).json({ error: err.message }); // Envia el mensaje de error
         } else {
             res.status(201).json({ message: 'Datos del ESP32 guardados correctamente' });
         }
+        connection.end(); // Cierra la conexión después de completar la consulta
     });
+
+    app.get('/api/esp32', (req, res) => {
+        const sql = "SELECT * FROM esp32";
+        
+        var connection = mysql.createConnection(credentials);
+        connection.connect();
+    
+        connection.query(sql, (err, result) => {
+            if (err) {
+                res.status(500).json({ error: err.message });
+            } else {
+                res.status(200).json(result);
+            }
+            connection.end();
+        });
+    });
+    
+
 
     connection.end();
 });
