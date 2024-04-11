@@ -148,6 +148,8 @@ app.get('/api/usuarios', (req, res) => {
     });
     connection.end();
 });
+
+
 app.post('/api/esp32', (req, res) => {
     const { sensor_1, sensor_2, sensor_3 } = req.body;
     const sql = "INSERT INTO esp32 (sensor_1, sensor_2, sensor_3) VALUES (?, ?, ?)";
@@ -164,30 +166,23 @@ app.post('/api/esp32', (req, res) => {
         }
         connection.end(); // Cierra la conexión después de completar la consulta
     });
-
-    app.get('/api/esp32', (req, res) => {
-        const sql = "SELECT * FROM esp32";
-        
-        var connection = mysql.createConnection(credentials);
-        connection.connect();
-    
-        connection.query(sql, (err, result) => {
-            if (err) {
-                res.status(500).json({ error: err.message });
-            } else {
-                res.status(200).json(result);
-            }
-            connection.end();
-        });
-    });
-    
-
-
-    connection.end();
 });
 
+// Define la ruta GET para obtener datos del ESP32 fuera de la función de solicitud POST
+app.get('/api/esp32/data', (req, res) => {
+    const sql = "SELECT * FROM esp32";
+    
+    var connection = mysql.createConnection(credentials);
+    connection.connect();
 
-  
+    connection.query(sql, (err, result) => {
+        if (err) {
+            res.status(500).json({ error: err.message });
+        } else {
+            res.status(200).json(result);
+        }
+        connection.end();
+    });
+});
 
-
-app.listen(4000, () => console.log('hola soy el servidor!!')) 
+app.listen(4000, () => console.log('¡Hola, soy el servidor!'));
