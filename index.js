@@ -149,7 +149,7 @@ app.get('/api/usuarios', (req, res) => {
     connection.end();
 });
 app.get('/api/esp32', (req, res) => {
-    const sql = "SELECT * FROM esp32_data";
+    const sql = "SELECT * FROM esp32";
     
     var connection = mysql.createConnection(credentials);
     connection.query(sql, (err, result) => {
