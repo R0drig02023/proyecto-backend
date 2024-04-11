@@ -150,6 +150,7 @@ app.get('/api/usuarios', (req, res) => {
 });
 
 
+// Define la ruta POST para insertar datos en la tabla "esp32"
 app.post('/api/esp32', (req, res) => {
     const { sensor_1, sensor_2, sensor_3 } = req.body;
     const sql = "INSERT INTO esp32 (sensor_1, sensor_2, sensor_3) VALUES (?, ?, ?)";
@@ -168,8 +169,8 @@ app.post('/api/esp32', (req, res) => {
     });
 });
 
-// Define la ruta GET para obtener datos del ESP32 fuera de la función de solicitud POST
-app.get('/api/esp32/data', (req, res) => {
+// Define la ruta GET para obtener los datos de la tabla "esp32"
+app.get('/api/esp32', (req, res) => {
     const sql = "SELECT * FROM esp32";
     
     var connection = mysql.createConnection(credentials);
@@ -185,4 +186,5 @@ app.get('/api/esp32/data', (req, res) => {
     });
 });
 
+// Inicia el servidor
 app.listen(4000, () => console.log('¡Hola, soy el servidor!'));
